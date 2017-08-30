@@ -16,7 +16,7 @@
 
     $scope.removeData = function () {
         service.removeLastData();
-    }
+    };
 
     $scope.data = data;
 });
