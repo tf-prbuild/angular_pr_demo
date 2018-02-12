@@ -33,25 +33,35 @@ pipeline {
             }
         }
         stage('D2D Tests') {
-            sauce('titus') {
-                sauceconnect(verboseLogging: true) {
-                    parallel {
-                        stage('Windows and Chrome') {
-                            sh 'ruby ./d2d_test.rb win10_chrome'
-                        }
-                        stage('Windows 10 and IE') {
-                            sh 'ruby ./d2d_test.rb win10_ie'
-                        }
-                        stage('Windows 8 and IE') {
-                            sh 'ruby ./d2d_test.rb win8_ie'
-                        }
-                        stage('Mac and Firefox') {
-                            sh 'ruby ./d2d_test.rb mac12_firefox'
+            steps {
+                sauce('titus') {
+                    sauceconnect(verboseLogging: true) {
+                        parallel {
+                            stage('Windows and Chrome') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win10_chrome'
+                                }
+                            }
+                            stage('Windows 10 and IE') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win10_ie'
+                                }
+                            }
+                            stage('Windows 8 and IE') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win8_ie'
+                                }
+                            }
+                            stage('Mac and Firefox') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb mac12_firefox'
+                                }
+                            }
                         }
                     }
                 }
-            }
-           sh 'ruby check_if_func_test_needed.rb'
+               sh 'ruby check_if_func_test_needed.rb'
+           }
         }
         stage ("Release") {
             steps {
