@@ -14,32 +14,35 @@ exports.config = {
 
   multiCapabilities: [{
     browserName: 'firefox',
-    version: '56',
+    version: '58',
     platform: 'macOS 10.12',
-    name: "firefox-tests",
+    name: "mac12-firefox",
     shardTestFiles: true,
     maxInstances: 25
   }, {
     browserName: 'chrome',
     version: '61',
     platform: 'Windows 10',
-    name: "chrome-tests",
+    name: "win10-chrome",
     shardTestFiles: true,
-    maxInstances: 25
+    maxInstances: 25,
+    seleniumVersion: "3.8.1"
   }, {
     browserName: 'internet explorer',
     version: '11',
     platform: 'Windows 10',
-    name: "ie11-tests",
+    name: "win10-ie11",
     shardTestFiles: true,
-    maxInstances: 25
+    maxInstances: 25,
+    seleniumVersion: "3.8.1"
   }, {
     browserName: 'internet explorer',
     version: '10',
     platform: 'Windows 8',
-    name: 'win7-ie10',
+    name: 'win8-ie10',
     shardTestFiles: true,
-    maxInstances: 25
+    maxInstances: 25,
+    seleniumVersion: "3.8.1"
   }],
 
   getPageTimeout: 60000,
@@ -55,6 +58,6 @@ exports.config = {
     printSessionId("Insert Job Name Here");
   },
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 600000
+    defaultTimeoutInterval: 60000
   }
 };
