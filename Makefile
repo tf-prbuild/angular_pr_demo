@@ -11,9 +11,3 @@ functional_tests:
 	./deploy_and_test.sh
 	@echo "Running functional tests mandator/checker"
 	@ruby check_if_func_test_needed.rb
-
-
-publish:
-	docker build -t ndmanvar/demo_test .
-	docker push ndmanvar/demo_test
-	docker rmi ndmanvar/demo_test
