@@ -1,4 +1,4 @@
-all: unit_tests functional_tests
+all: functional_tests
 
 unit_tests:
 	@echo "\n\n\n--------\nRunning unit_tests...\n--------\n\n"
