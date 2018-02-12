@@ -1,6 +1,4 @@
-setup:
-	@echo "\n\n\n--------\nRunning setup...\n--------\n\n"
-	npm install
+all: publish
 
 publish:
 	docker build -t ndmanvar/demo_test .
