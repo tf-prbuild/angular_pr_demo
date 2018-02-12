@@ -36,16 +36,38 @@ pipeline {
             steps {
                 sauce('titus') {
                     sauceconnect(verboseLogging: true) {
-                        sh './d2d_test.sh'
+                        parallel {
+                            stage('Windows and Chrome') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win10_chrome'
+                                }
+                            }
+                            stage('Windows 10 and IE') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win10_ie'
+                                }
+                            }
+                            stage('Windows 8 and IE') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb win8_ie'
+                                }
+                            }
+                            stage('Mac and Firefox') {
+                                steps {
+                                    sh 'ruby ./d2d_test.rb mac12_firefox'
+                                }
+                            }
+                        }
                     }
                 }
                sh 'ruby check_if_func_test_needed.rb'
-            }
+           }
         }
         stage ("Release") {
             steps {
                 withCredentials([string(credentialsId: 'ghpat', variable: 'TOKEN')]) {
-                    sh "ruby merge_it.rb ${TOKEN} https://api.github.com/repos/${env.ghprbGhRepository}/pulls/${env.ghprbPullId}/merge"
+                    sh "echo No Auto Merge right now"
+//                    sh "ruby merge_it.rb ${TOKEN} https://api.github.com/repos/${env.ghprbGhRepository}/pulls/${env.ghprbPullId}/merge"
                 }
             }
         }
