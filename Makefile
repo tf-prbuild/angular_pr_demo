@@ -1,12 +1,4 @@
-all: setup static_code_analysis unit_tests functional_tests
-
-setup:
-	@echo "\n\n\n--------\nRunning setup...\n--------\n\n"
-	npm install
-
-static_code_analysis:
-	@echo "\n\n\n--------\nRunning JSHint...\n--------\n\n"
-	./node_modules/.bin/jshint controllers services views test specs *.js
+all: unit_tests functional_tests
 
 unit_tests:
 	@echo "\n\n\n--------\nRunning unit_tests...\n--------\n\n"
