@@ -1,4 +1,4 @@
-FROM node:0.12.15-slim
+FROM node:latest
 
 RUN \
   apt-get update && \
