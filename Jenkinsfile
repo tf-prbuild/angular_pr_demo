@@ -56,7 +56,7 @@ pipeline {
         stage ("Release") {
             steps {
                 withCredentials([string(credentialsId: 'ghpat', variable: 'TOKEN')]) {
-                    sh echo "No Auto Merge right now"
+                    sh "echo No Auto Merge right now"
 //                    sh "ruby merge_it.rb ${TOKEN} https://api.github.com/repos/${env.ghprbGhRepository}/pulls/${env.ghprbPullId}/merge"
                 }
             }
