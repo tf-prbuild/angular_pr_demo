@@ -1,27 +1,10 @@
-all: setup static_code_analysis unit_tests functional_tests
+all: functional_tests
 
-setup:
-	@echo "\n\n\n--------\nRunning setup...\n--------\n\n"
-	npm install
-
-static_code_analysis:
-	@echo "\n\n\n--------\nRunning JSHint...\n--------\n\n"
-	./node_modules/.bin/jshint controllers services views test specs *.js
-
-unit_tests:
-	@echo "\n\n\n--------\nRunning unit_tests...\n--------\n\n"
-	@rm -rf old_coverage && git pull origin master && mv coverage old_coverage
-	./node_modules/.bin/karma start karma.conf.js
-	@ruby code_coverage_checker.rb
+new:
+    @echo "New Line"
 
 functional_tests:
 	@echo "\n\n\n--------\nRunning functional_tests...\n--------\n\n"
 	./deploy_and_test.sh
 	@echo "Running functional tests mandator/checker"
 	@ruby check_if_func_test_needed.rb
-
-
-publish:
-	docker build -t ndmanvar/demo_test .
-	docker push ndmanvar/demo_test
-	docker rmi ndmanvar/demo_test
