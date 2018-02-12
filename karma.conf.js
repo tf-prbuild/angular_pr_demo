@@ -80,6 +80,7 @@ module.exports = function(config) {
     },
 
     captureTimeout: 120000,
+    browserNoActivityTimeout: 30000,
     customLaunchers: customLaunchers,
 
     // start these browsers
