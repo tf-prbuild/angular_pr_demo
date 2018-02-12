@@ -4,28 +4,15 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh 'node --version'
-                sh 'npm --version'
                 sh 'npm install'
             }
         }
-        stage('Static Code Analysis') {
+        stage('Build') {
             steps {
-                sh 	'./node_modules/.bin/jshint controllers services views test specs *.js'
+                sh 	'./deploy.sh demo_test docker_name'
             }
         }
-        stage('Unit Tests') {
-            steps {
-            	sh 'rm -rf old_coverage && git pull origin master && mv coverage old_coverage'
-                sauce('titus') {
-                    sauceconnect(verboseLogging: true) {
-                        sh './node_modules/.bin/karma start karma.conf.js'
-                    }
-                }
-                sh 'ruby code_coverage_checker.rb'
-            }
-        }
-        stage('Functional Test') {
+        stage('D2D Tests') {
             steps {
                 sauce('titus') {
                     sauceconnect(verboseLogging: true) {
@@ -33,6 +20,13 @@ pipeline {
                     }
                 }
                sh 'ruby check_if_func_test_needed.rb'
+            }
+        }
+        stage ("Release") {
+            steps {
+                withCredentials([string(credentialsId: 'PAT', variable: 'TOKEN')]) {
+                    sh "curl -X PUT -H 'Authorization: token ${TOKEN}' -d '{\"commit_title\": \"Merge pull request\"}' https://api.github.com/repos/${env.ghprbGhRepository}/pulls/${env.ghprbPullId}/merge"
+                }
             }
         }
     }
