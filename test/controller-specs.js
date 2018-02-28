@@ -31,5 +31,13 @@ describe('ControlerTest', function() {
       expect($scope.newData.data1).toEqual('');
     });
 
+      it('should remove last data', function () {
+          var $scope = {};
+          var controller = $controller('controller', { $scope: $scope });
+          $scope.removeData();
+          expect($scope.data).toEqual([{ data1: 41, data2: 42 }]);
+      });
+
+
   });
 });
