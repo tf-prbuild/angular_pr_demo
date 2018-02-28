@@ -5,7 +5,6 @@ describe('ControlerTest', function() {
 
   beforeEach(inject(function(_$controller_){
     // The injector unwraps the underscores (_) from around the parameter names when matching
-      /// testing
     $controller = _$controller_;
   }));
 
